@@ -6,8 +6,8 @@
 import java.io.*;
 
 /**
- * @description Ê¹ÓÃtransient¹Ø¼ü×Ö²»ĞòÁĞ»¯Ä³¸ö±äÁ¿
- *        ×¢Òâ¶ÁÈ¡µÄÊ±ºò£¬¶ÁÈ¡Êı¾İµÄË³ĞòÒ»¶¨ÒªºÍ´æ·ÅÊı¾İµÄË³Ğò±£³ÖÒ»ÖÂ
+ * @description ä½¿ç”¨transientå…³é”®å­—ä¸åºåˆ—åŒ–æŸä¸ªå˜é‡
+ *        æ³¨æ„è¯»å–çš„æ—¶å€™ï¼Œè¯»å–æ•°æ®çš„é¡ºåºä¸€å®šè¦å’Œå­˜æ”¾æ•°æ®çš„é¡ºåºä¿æŒä¸€è‡´
  *
  * @author Alexia
  * @date  2013-10-15
@@ -27,7 +27,7 @@ public class TransientTest {
         try {
             ObjectOutputStream os = new ObjectOutputStream(
                     new FileOutputStream("C:\\Users\\xitianyu\\Desktop\\data\\person.txt"));
-            os.writeObject(Person); // ½«Person¶ÔÏóĞ´½øÎÄ¼ş
+            os.writeObject(Person); // å°†Personå¯¹è±¡å†™è¿›æ–‡ä»¶
             os.flush();
             os.close();
         } catch (FileNotFoundException e) {
@@ -36,12 +36,12 @@ public class TransientTest {
             e.printStackTrace();
         }
         try {
-            // ÔÚ·´ĞòÁĞ»¯Ö®Ç°¸Ä±äPersonnameµÄÖµ
+            // åœ¨ååºåˆ—åŒ–ä¹‹å‰æ”¹å˜Personnameçš„å€¼
             Person.setUsername("xty");
 
             ObjectInputStream is = new ObjectInputStream(new FileInputStream(
                     "C:\\Users\\xitianyu\\Desktop\\data\\person.txt"));
-            Person = (Person) is.readObject(); // ´ÓÁ÷ÖĞ¶ÁÈ¡PersonµÄÊı¾İ
+            Person = (Person) is.readObject(); // ä»æµä¸­è¯»å–Personçš„æ•°æ®
             is.close();
 
             System.out.println("\nread after Serializable: ");

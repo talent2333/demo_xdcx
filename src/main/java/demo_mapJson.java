@@ -6,10 +6,9 @@ import com.fasterxml.jackson.databind.type.MapType;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -20,6 +19,7 @@ import java.util.stream.Stream;
 public class demo_mapJson {
 
     private static HashMap<String, String> map = new HashMap<>();
+//  private static LinkedHashMap<String,String> map = new LinkedHashMap<>();
 
     @Before
     public void before(){
@@ -36,27 +36,39 @@ public class demo_mapJson {
         System.out.println("json = " + json);
     }
     @Test
+    public void testMap() throws IOException {
+
+        ObjectMapper om = new ObjectMapper();
+        HashMap<String,String> data = new HashMap<>();
+        File file = new File("t1");
+
+        HashMap<String,String> map = om.readValue(file, HashMap.class);
+
+        map.entrySet().stream().forEach(t-> System.out.printf("%s:%s ",t.getKey(),t.getValue()));
+
+    }
+    @Test
     public  void testJsonToMap() throws JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(map);
         System.out.println("json = " + json);
-        ObjectMapper objectMapper = new ObjectMapper();
-        MapType mapType = objectMapper.getTypeFactory().constructMapType(HashMap.class, String.class, String.class);
-        HashMap<String,String> o = (HashMap<String,String>)objectMapper.readValue(json, mapType);
+        ObjectMapper om = new ObjectMapper();
+        MapType mapType = om.getTypeFactory().constructMapType(HashMap.class, String.class, String.class);
+        HashMap<String,String> data = (HashMap<String,String>)om.readValue(json, mapType);
 //        Iterator<Map.Entry<String, String>> iterator = map.entrySet().iterator();
 //        while (iterator.hasNext()) {
 //            Map.Entry<String, String> next = iterator.next();
 //            System.out.println("key: "+next.getKey()+",value: "+next.getValue());
 //        }
-        o.entrySet().stream().forEach(t->System.out.printf("%s ",t));
+        data.entrySet().stream().forEach(t->System.out.printf("%s:%s ",t.getKey(),t.getValue()));
     }
 
     @Test
     public void testMapTree() throws JsonProcessingException {
 
         ObjectMapper om = new ObjectMapper();
-        String jsonString = "{\"name\":\"Mahesh Kumar\", \"age\":21,\"verified\":false,\"marks\": {\"mark1\":\"100\",\"mark2\":\"200\"}}}";
+        String jsonString = "{\"name\":\"Mahesh Kumar\", \"age\":21,\"verified\":false,\"marks\": {\"mark1\":\"150\",\"mark2\":\"220\"}}}";
         JsonNode jsonNode = om.readTree(jsonString);
         JsonNode markNode = null;
         Iterator<String> iter = jsonNode.fieldNames();

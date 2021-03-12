@@ -5,20 +5,31 @@ import java.io.*;
  * @description
  * @date 2020/12/2
  */
-public class demo_serializable implements Externalizable{
+public class demo_serializable implements Serializable {
 
-    private transient String content = "是的，我将会被序列化，不管我是否被transient关键字修饰";
+    private transient String content = "23343234";
 
-    @Override
-    public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(content);
+    private String data = "123123";
+
+    public String getData() {
+
+        return data;
     }
 
-    @Override
-    public void readExternal(ObjectInput in) throws IOException,
-            ClassNotFoundException {
-        content = (String) in.readObject();
+    public String getContent() {
+
+        return content;
     }
+    //    @Override
+//    public void writeExternal(ObjectOutput out) throws IOException {
+//        out.writeObject(content);
+//    }
+//
+//    @Override
+//    public void readExternal(ObjectInput in) throws IOException,
+//            ClassNotFoundException {
+//        content = (String) in.readObject();
+//    }
 
     public static void main(String[] args) throws Exception {
 
@@ -29,8 +40,10 @@ public class demo_serializable implements Externalizable{
 
         ObjectInput in = new ObjectInputStream(new FileInputStream(new File(
                 "test")));
-        et = (demo_serializable) in.readObject();
-        System.out.println(et.content);
+        demo_serializable res = new demo_serializable();
+        res = (demo_serializable) in.readObject();
+        System.out.println(res.getData());
+        System.out.println(res.getContent());
 
         out.close();
         in.close();

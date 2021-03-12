@@ -16,5 +16,6 @@ public class User {
     private Integer age;
     private String gender;
     private String phoneNumber;
+    private double salary;
 
 }

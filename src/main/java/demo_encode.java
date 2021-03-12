@@ -9,12 +9,12 @@ public class demo_encode {
 
     public static void main(String[] args) throws UnsupportedEncodingException {
 
-        byte[] b_gbk = "ÖÐ".getBytes("GBK");
-        byte[] b_utf8 = "ÖÐ".getBytes("UTF-8");
-        byte[] b_iso88591 = "ÖÐ".getBytes("ISO8859-1");
-        System.out.println(b_utf8.length);//3
-        System.out.println(b_gbk.length); //2
+        byte[] b_iso88591 = "ä¸­æ–‡".getBytes("ISO8859-1");
+        byte[] b_gbk = "è‹±æ–‡".getBytes("GBK");
+        byte[] b_utf8 = "éŸ©æ–‡".getBytes("UTF-8");
         System.out.println(b_iso88591.length);//1
+        System.out.println(b_gbk.length); //2
+        System.out.println(b_utf8.length);//3
         String s = new String(b_utf8, "UTF-8");
         System.out.println("s = " + s);
 
