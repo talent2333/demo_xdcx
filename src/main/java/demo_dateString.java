@@ -1,3 +1,4 @@
+import lombok.val;
 import org.junit.Test;
 
 import java.sql.Timestamp;
@@ -58,4 +59,23 @@ public class demo_dateString {
 
     }
 
+    @Test
+    public void test002(){
+
+        long timestamp = 1615875547000l;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        val datetime = new Date(timestamp);
+        System.out.println("datetime = " + datetime);
+        String format = df.format(datetime);
+        System.out.println("format = " + format);
+    }
+
+    @Test
+    public void test003(){
+
+        String str1 ="2000-01-01";
+        String str2 = "2000-01-01 10:10:10";
+
+        System.out.println(str1.compareTo(str2));
+    }
 }
