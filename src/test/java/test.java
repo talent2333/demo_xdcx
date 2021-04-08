@@ -61,6 +61,11 @@ public class test {
         sortLists.add("1");
         Stream<String> stringStream = sortLists.stream().filter(s -> s.length() != 1 && s.startsWith("1"));
         List<String> collect = stringStream.collect(Collectors.toList());
-        stringStream.forEach(t->System.out.printf("%s ",t));
+        collect.forEach(t->System.out.printf("%s ",t));
+    }
+    @Test
+    public void test005(){
+
+        System.out.println(Long.MAX_VALUE);
     }
 }

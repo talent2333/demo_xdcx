@@ -1,6 +1,7 @@
 package com.saic.offline
 
-import java.text.SimpleDateFormat
+import java.time.{Duration, LocalDateTime}
+import java.time.format.DateTimeFormatter
 
 import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.spark.rdd.RDD
@@ -21,20 +22,20 @@ object BuriedData2Bubble {
 
   def getDistanceTime(s1: String, s2: String): Long = {
 
-    val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-    var second: Long = 0L
-    var millisecond: Long = 0L
+    val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    var seconds = 0L
+
     try {
-      val preTime: Long = format.parse(s1).getTime
-      val lastTime: Long = format.parse(s2).getTime
-      millisecond = lastTime - preTime
-      if (millisecond < 0) return 0L
-      second = millisecond / 1000L
+      val preTime: LocalDateTime = LocalDateTime.parse(s1, formatter)
+      val lastTime: LocalDateTime = LocalDateTime.parse(s2, formatter)
+      val duration: Duration = Duration.between(preTime, lastTime)
+      seconds = duration.getSeconds
+      if (seconds < 0) return 0L
     } catch {
       case e: Exception =>
         e.printStackTrace()
     }
-    second
+    seconds
   }
 
   /**
